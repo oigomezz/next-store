@@ -23,11 +23,30 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <header className="flex h-16 bg-yellow-300 px-4">
+          <form
+            action="/items"
+            className="m-auto flex gap-4 max-w-screen-xl flex-1"
+          >
+            <input
+              className="h-8 flex-1 px-2 bg-gray-50 text-black"
+              name="search"
+              type="text"
+              placeholder="Buscar"
+            />
+            <button
+              className="h-8  bg-gray-300 px-2 py-1 text-slate-700"
+              type="submit"
+            >
+              Buscar
+            </button>
+          </form>
+        </header>
+        <main className="m-auto max-w-screen-xl p-4">{children}</main>
       </body>
     </html>
   );
