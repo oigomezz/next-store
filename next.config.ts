@@ -1,13 +1,7 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  experimental: {
-    reactCompiler: true,
-  },
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
-  },
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
 };
 
 export default nextConfig;
