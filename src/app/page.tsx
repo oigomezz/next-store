@@ -1,23 +1,24 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { fetchProducts } from "./api";
 
 export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    async function fetchProducts() {
-      const res = await fetch(`https://api.escuelajs.co/api/v1/products`);
-      const data = await res.json();
-      setProducts(data);
+    async function fetch() {
+      const res = await fetchProducts();
+      if (!res) throw new Error("Failed to fetch products");
+      setProducts(res);
     }
-    fetchProducts();
+    fetch();
   }, []);
 
   return (
     <section>
       <article className="grid">
-        {products ? (
+        {products.length > 0 ? (
           products.map((item) => (
             <div
               key={item.id}

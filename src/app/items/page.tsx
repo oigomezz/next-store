@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useState, useEffect } from "react";
+import { fetchProducts } from "../api";
 
 export default function ItemsPage({
   searchParams,
@@ -9,27 +10,24 @@ export default function ItemsPage({
   readonly searchParams: { readonly search: string };
 }) {
   const [products, setProducts] = useState<Product[]>([]);
-
   useEffect(() => {
-    async function fetchProducts() {
-      const { search } = searchParams;
-      if (search) {
-        const res = await fetch(
-          `https://api.escuelajs.co/api/v1/products?title=${search}&limit=10`
-        );
-        const data = await res.json();
-        setProducts(data);
-      } else {
+    async function fetch() {
+      const search = searchParams.search;
+      const res = await fetchProducts(search);
+      if (!res) throw new Error("Failed to fetch products");
+      if (res.length === 0) {
         setProducts([]);
+        return;
       }
+      setProducts(res);
     }
-    fetchProducts();
+    fetch();
   }, []);
 
   return (
     <section>
       <article className="grid">
-        {products ? (
+        {products.length > 0 ? (
           products.map((item) => (
             <div
               key={item.id}
