@@ -3,20 +3,6 @@
 import { useState, useEffect } from "react";
 
 export default function Home() {
-  type Product = {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-    category: {
-      id: number;
-      name: string;
-      image: string;
-      slug: string;
-    };
-    images: string[];
-  };
-
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {

@@ -8,20 +8,6 @@ export default function ItemsPage({
 }: {
   readonly searchParams: { readonly search: string };
 }) {
-  type Product = {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-    category: {
-      id: number;
-      name: string;
-      image: string;
-      slug: string;
-    };
-    images: string[];
-  };
-
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
