@@ -1,8 +1,13 @@
 "use client";
 
+import * as React from "react";
 import { useState, useEffect } from "react";
 
-export default function Home() {
+export default function ItemsPage({
+  searchParams,
+}: {
+  readonly searchParams: { readonly search: string };
+}) {
   type Product = {
     id: number;
     title: string;
@@ -21,9 +26,16 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchProducts() {
-      const res = await fetch(`https://api.escuelajs.co/api/v1/products`);
-      const data = await res.json();
-      setProducts(data);
+      const { search } = searchParams;
+      if (search) {
+        const res = await fetch(
+          `https://api.escuelajs.co/api/v1/products?title=${search}&limit=10`
+        );
+        const data = await res.json();
+        setProducts(data);
+      } else {
+        setProducts([]);
+      }
     }
     fetchProducts();
   }, []);
